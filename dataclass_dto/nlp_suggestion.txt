@@ -1,0 +1,55 @@
+To solve this task, we'll utilize the Natural Language Toolkit (NLTK) library for text processing and ranking. The basic idea is to rank each URL by its relevance based on how often it mentions the topic.
+
+```python
+import nltk
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+from collections import Counter
+
+# Ensure you have the necessary NLTK data downloaded
+nltk.download('punkt')
+nltk.download('stopwords')
+
+def rank_urls(urls, topic):
+    # Initialize a list to store the ranked URLs
+    ranked_urls = []
+
+    # Tokenize the topic for comparison
+    topic_tokens = word_tokenize(topic.lower())
+
+    # Remove stopwords from the topic tokens (not strictly necessary here)
+    stop_words = set(stopwords.words('english'))
+    topic_tokens = [token for token in topic_tokens if token not in stop_words]
+
+    # Iterate over each URL and calculate its score based on relevance
+    for url in urls:
+        # Tokenize the URL's body
+        tokens = word_tokenize(url['body'].lower())
+
+        # Remove stopwords from the tokens
+        tokens = [token for token in tokens if token not in stop_words]
+
+        # Calculate the frequency of topic words within this URL's content
+        score = sum(1 for token in topic_tokens if token in tokens)
+
+        # Store the URL along with its score
+        ranked_urls.append((url['href'], score))
+
+    # Sort the URLs based on their scores (highest score first)
+    ranked_urls.sort(key=lambda x: x[1], reverse=True)
+
+    return [url[0] for url in ranked_urls]
+
+# Sample usage
+urls = [
+    {"title": "\"Hello, World!\" program - Wikipedia", "href": "https://en.wikipedia.org/wiki/\"Hello,_World!\"_program", "body": "Learn about the origin and evolution of the simple computer program that prints \"Hello, World!\" to the screen. Compare different languages, devices, and formats of the \"Hello, World!\" program and its variations."},
+    {"title": "Where does 'Hello world' come from? - Stack Overflow", "href": "https://stackoverflow.com/questions/602237/where-does-hello-world-come-from", "body": "'hello, world' is usually the first example for any programming language. I've always wondered where this sentence came from and where was it first used. I've once been told that it was the first sentence ever to be displayed on a computer screen, but I've not been able to find any reference to this."},
+    {"title": "Hello World - Programming Fundamentals", "href": "https://press.rebus.community/programmingfundamentals/chapter/hello-world/", "body": "Learn how to write a simple \"Hello, world!\" program in different programming languages. See examples, explanations, comments, and flowcharts for each language."},
+    # ... other URLs ...
+]
+
+topic = 'hello-world'
+print(rank_urls(urls, topic))
+```
+
+This script tokenizes the URL bodies and topic into words, removes stopwords (common words like "the" that do not add much to the meaning), then counts how many of the topic's words are in each URL. Finally, it sorts the URLs by their scores and prints them out. Note this is a simple implementation. There are more sophisticated methods for ranking URLs based on relevance, such as using keyword extraction or TF-IDF (Term Frequency-Inverse Document Frequency) techniques.

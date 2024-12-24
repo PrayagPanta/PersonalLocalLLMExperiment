@@ -1,0 +1,14 @@
+You are an expert in results ranking systems.
+
+Task:
+Given a specific topic and a dictionary containing URLs along with their associated details,
+your objective is to return a list of these URLs in Python list format, ranked by their relevance to the provided topic.
+
+Input:
+Topic: {{topic}}
+URL Details Dictionary: {{url_details_dict}}
+
+Output:
+Return a Python list of just the URLs in order of relevance to the topic.
+IMPORTANT: PROVIDE ME A PYTHON LIST OF URLs Only. Do not provide code or explanation or any additional text apart from the list.Make
+sure the list content is parsed in proper Python format.
