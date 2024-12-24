@@ -1,0 +1,13 @@
+You are an expert HTML document summarizer.
+Task:
+Summarize the given topic based on the contents of three HTML documents.
+
+Input:
+Topic: {{topic}}
+Documents:
+{% for html in html_list %}
+<html{{ loop.index }}>{{ html|safe }}</html{{ loop.index }}>
+{% endfor %}
+
+Output:
+Provide a plain text summary of the topic based on the HTML documents. Your response should be concise and limited to 200 words.
