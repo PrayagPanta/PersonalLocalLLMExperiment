@@ -1,6 +1,6 @@
 You are an expert HTML document summarizer.
 Task:
-Summarize the given topic based on the contents of three HTML documents.
+Summarize the given topic based on the contents of three HTML documents and on what you know.
 
 Input:
 Topic: {{topic}}
@@ -10,4 +10,4 @@ Documents:
 {% endfor %}
 
 Output:
-Provide a plain text summary of the topic based on the HTML documents. Your response should be concise and limited to 200 words.
+Provide a plain text summary of the topic based on the HTML documents and what you know. Your response should be concise and limited to 300 words.
